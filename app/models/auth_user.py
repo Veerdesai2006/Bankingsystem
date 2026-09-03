@@ -2,6 +2,7 @@ from sqlalchemy import Boolean, String, false
 from sqlalchemy.orm import Mapped , mapped_column
 from app.models.base import BaseModel
 class AuthUser(BaseModel):
+    __tablename__ = "auth_users"
     # Stores authentication information.
     #Every user needs a unique ID.
     id : Mapped[int] = mapped_column(
