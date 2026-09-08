@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Register — SecureBank{% endblock %}
+{% block meta_description %}Create your free SecureBank account in under a minute.{% endblock %}
+
+{% block content %}
+<div class="auth-page">
+  <div class="auth-card">
+
+    <div class="auth-header">
+      <div class="auth-logo">🏦</div>
+      <h1 class="auth-title">Create account</h1>
+      <p class="auth-subtitle">Join SecureBank — it's completely free</p>
+    </div>
+
+    <!-- Alert (shown by JavaScript) -->
+    <div class="alert" id="register-alert" role="alert"></div>
+
+    <form id="register-form" onsubmit="handleRegister(event)" novalidate>
+
+      <div class="form-group">
+        <label class="form-label" for="email">Email address</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          class="form-input"
+          placeholder="you@example.com"
+          autocomplete="email"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          class="form-input"
+          placeholder="At least 8 characters"
+          autocomplete="new-password"
+          required
+          minlength="8"
+          maxlength="128"
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="confirm-password">Confirm password</label>
+        <input
+          type="password"
+          id="confirm-password"
+          name="confirm-password"
+          class="form-input"
+          placeholder="Repeat your password"
+          autocomplete="new-password"
+          required
+        />
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block mt-2" id="register-btn">
+        Create Account
+      </button>
+
+    </form>
+
+    <div class="auth-footer">
+      Already have an account?
+      <a href="/login" id="link-to-login">Sign in</a>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

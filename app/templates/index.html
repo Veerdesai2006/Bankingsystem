@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block title %}SecureBank — Modern Digital Banking{% endblock %}
+{% block meta_description %}SecureBank provides secure, modern digital banking. Register today to manage your finances.{% endblock %}
+
+{% block content %}
+
+<!-- ─── Hero ──────────────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+
+      <div class="hero-badge anim anim-1">
+        ✦ &nbsp;Trusted Digital Banking
+      </div>
+
+      <h1 class="anim anim-2">
+        Banking that works<br>
+        <span class="gradient-text">as fast as you do.</span>
+      </h1>
+
+      <p class="hero-desc anim anim-3">
+        SecureBank gives you instant deposits, withdrawals, and real-time
+        balance tracking — all behind bank-grade security.
+        No queues. No branches. Just banking.
+      </p>
+
+      <div class="hero-actions anim anim-4">
+        {% if current_user %}
+          <a href="/dashboard" class="btn btn-primary" id="hero-go-dashboard">
+            Go to Dashboard →
+          </a>
+        {% else %}
+          <a href="/register" class="btn btn-primary" id="hero-open-account">
+            Open Free Account
+          </a>
+          <a href="/login" class="btn btn-secondary" id="hero-sign-in">
+            Sign In
+          </a>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── Features ─────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">Why SecureBank</div>
+    <h2 class="section-title">Everything you need, nothing you don't.</h2>
+    <p class="section-sub">
+      Built with modern engineering practices and security at every layer.
+    </p>
+
+    <div class="grid-3">
+
+      <div class="feature-card anim anim-2">
+        <span class="feature-icon">🔐</span>
+        <div class="feature-title">Bank-grade Security</div>
+        <p class="feature-desc">
+          Passwords hashed with Argon2. Sessions secured with JWT.
+          HTTP-only cookies prevent XSS attacks. Secure from day one.
+        </p>
+      </div>
+
+      <div class="feature-card anim anim-3">
+        <span class="feature-icon">⚡</span>
+        <div class="feature-title">Instant Transactions</div>
+        <p class="feature-desc">
+          Deposits and withdrawals processed immediately.
+          Every transaction is permanently recorded for your audit trail.
+        </p>
+      </div>
+
+      <div class="feature-card anim anim-4">
+        <span class="feature-icon">📊</span>
+        <div class="feature-title">Full History</div>
+        <p class="feature-desc">
+          See every deposit and withdrawal with balance snapshots.
+          Your financial history is always accurate and tamper-proof.
+        </p>
+      </div>
+
+      <div class="feature-card anim anim-2">
+        <span class="feature-icon">💰</span>
+        <div class="feature-title">Precise Calculations</div>
+        <p class="feature-desc">
+          We use exact Decimal arithmetic — never floating-point.
+          ₹0.10 + ₹0.20 is always exactly ₹0.30. No rounding surprises.
+        </p>
+      </div>
+
+      <div class="feature-card anim anim-3">
+        <span class="feature-icon">🏛️</span>
+        <div class="feature-title">Clean Architecture</div>
+        <p class="feature-desc">
+          Built with FastAPI, SQLAlchemy 2.0, and Alembic migrations.
+          Industry-standard patterns: Repository → Service → API.
+        </p>
+      </div>
+
+      <div class="feature-card anim anim-4">
+        <span class="feature-icon">🚀</span>
+        <div class="feature-title">Always Available</div>
+        <p class="feature-desc">
+          Your account is accessible 24/7 from any device.
+          Check your balance, deposit, or withdraw anytime.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA ───────────────────────────────────────────────────────────── -->
+{% if not current_user %}
+<section class="section">
+  <div class="container">
+    <div class="cta-strip anim anim-2">
+      <h2>Ready to get started?</h2>
+      <p>Join SecureBank today. It takes less than a minute to open your account.</p>
+      <a href="/register" class="btn btn-primary" id="cta-register">
+        Create Account — It's Free
+      </a>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% endblock %}

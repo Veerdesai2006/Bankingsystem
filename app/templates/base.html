@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="{% block meta_description %}SecureBank — Modern digital banking built for the next generation.{% endblock %}" />
+  <title>{% block title %}SecureBank{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}" />
+</head>
+<body>
+
+  <!-- ─── Navbar ─────────────────────────────────────────────────────── -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <a href="/" class="nav-brand" id="nav-brand">
+        <span class="brand-icon">🏦</span>
+        <span class="brand-name">
+          <span class="brand-secure">Secure</span>Bank
+        </span>
+      </a>
+
+      <div class="nav-links">
+        {% if current_user %}
+          <!-- Logged-in navigation -->
+          <a href="/dashboard" class="nav-link" id="nav-dashboard">Dashboard</a>
+          <a href="/balance"   class="nav-link" id="nav-balance">Balance</a>
+          <a href="/deposit"   class="nav-link" id="nav-deposit">Deposit</a>
+          <a href="/withdraw"  class="nav-link" id="nav-withdraw">Withdraw</a>
+          <button onclick="logout()" class="nav-btn nav-btn-outline" id="nav-logout" type="button">
+            Logout
+          </button>
+        {% else %}
+          <!-- Public navigation -->
+          <a href="/"         class="nav-link" id="nav-home">Home</a>
+          <a href="/login"    class="nav-btn nav-btn-outline" id="nav-login">Login</a>
+          <a href="/register" class="nav-btn nav-btn-primary" id="nav-register">Register</a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── Main Content ───────────────────────────────────────────────── -->
+  <main class="main-content" id="main-content">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- ─── Footer ─────────────────────────────────────────────────────── -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-inner">
+      <p>&copy; 2024 SecureBank. Educational project. Not a real bank.</p>
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/login">Login</a>
+        <a href="/register">Register</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', path='js/main.js') }}"></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

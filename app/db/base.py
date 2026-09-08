@@ -1,17 +1,22 @@
-from datetime import datetime
-from sqlalchemy import DateTime
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy.orm import DeclarativeBase
+
+
 class Base(DeclarativeBase):
+    """
+    The single root class for all SQLAlchemy models in this project.
 
-    id: Mapped[int] = mapped_column(primary_key=True)
+    WHY DeclarativeBase (SQLAlchemy 2.0 style)?
+    ─────────────────────────────────────────────
+    In SQLAlchemy 2.0, we use `DeclarativeBase` instead of the older
+    `declarative_base()` function call. It provides better type checking
+    and works natively with Python type hints.
 
-    created_at: Mapped[datetime] = mapped_column(
-        DateTime,
-        default=datetime.now,
-    )
+    This class intentionally has NO columns.
+    Shared columns (id, created_at, updated_at) are defined in:
+      - app/models/base.py    → id
+      - app/models/mixins.py  → created_at, updated_at
 
-    updated_at: Mapped[datetime] = mapped_column(
-        DateTime,
-        default=datetime.now,
-        onupdate=datetime.now,
-    )
+    Keeping this class clean makes it easy to swap databases later.
+    """
+
+    pass

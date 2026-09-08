@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — SecureBank{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+  <div class="container">
+
+    <!-- ─── Header ───────────────────────────────────────────────────── -->
+    <div class="page-header anim anim-1">
+      <div class="page-eyebrow">My Account</div>
+      <h1 class="page-title">Welcome back,<br>
+        <span class="gradient-text">{{ current_user.email }}</span>
+      </h1>
+    </div>
+
+    <!-- ─── Balance Card ─────────────────────────────────────────────── -->
+    <div class="balance-card anim anim-2">
+      <div class="balance-label">Available Balance</div>
+      <div class="balance-amount">
+        <span class="currency">₹</span>{{ "%.2f"|format(balance) if balance is not none else "—" }}
+      </div>
+      <div class="balance-account">
+        {% if account_number %}
+          Account: {{ account_number }}
+        {% else %}
+          Make your first deposit to activate your account
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- ─── Quick Actions ─────────────────────────────────────────────── -->
+    <div class="quick-actions anim anim-3">
+      <a href="/deposit" class="action-card" id="action-deposit">
+        <span class="action-icon">⬇️</span>
+        <span class="action-label">Deposit</span>
+      </a>
+      <a href="/withdraw" class="action-card" id="action-withdraw">
+        <span class="action-icon">⬆️</span>
+        <span class="action-label">Withdraw</span>
+      </a>
+      <a href="/balance" class="action-card" id="action-balance">
+        <span class="action-icon">💰</span>
+        <span class="action-label">Balance</span>
+      </a>
+      <a href="#transactions" class="action-card" id="action-history">
+        <span class="action-icon">📋</span>
+        <span class="action-label">History</span>
+      </a>
+    </div>
+
+    <!-- ─── Transactions ──────────────────────────────────────────────── -->
+    <div class="card anim anim-4" id="transactions">
+      <div class="section-heading">
+        <span>Recent Transactions</span>
+        <span class="text-muted text-sm">Last {{ transactions|length }} entries</span>
+      </div>
+
+      {% if transactions %}
+        <table class="tx-table">
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Amount</th>
+              <th>Balance After</th>
+              <th>Description</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for tx in transactions %}
+            <tr>
+              <td>
+                {% if tx.transaction_type.value == "DEPOSIT" %}
+                  <span class="badge badge-deposit">↓ Deposit</span>
+                {% else %}
+                  <span class="badge badge-withdrawal">↑ Withdraw</span>
+                {% endif %}
+              </td>
+              <td>
+                <span class="tx-amount {% if tx.transaction_type.value == 'DEPOSIT' %}credit{% else %}debit{% endif %}">
+                  {% if tx.transaction_type.value == "DEPOSIT" %}+{% else %}−{% endif %}₹{{ "%.2f"|format(tx.amount) }}
+                </span>
+              </td>
+              <td class="text-muted">₹{{ "%.2f"|format(tx.balance_after) }}</td>
+              <td class="text-muted">{{ tx.description or "—" }}</td>
+              <td class="text-muted" style="font-size:0.8rem;">
+                {{ tx.created_at.strftime("%d %b %Y, %H:%M") if tx.created_at else "—" }}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <div class="empty-state">
+          <p>🏦 No transactions yet.</p>
+          <p class="mt-1">Make your first <a href="/deposit">deposit</a> to get started!</p>
+        </div>
+      {% endif %}
+    </div>
+
+  </div>
+</div>
+{% endblock %}

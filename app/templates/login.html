@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Login — SecureBank{% endblock %}
+{% block meta_description %}Sign in to your SecureBank account to manage your finances.{% endblock %}
+
+{% block content %}
+<div class="auth-page">
+  <div class="auth-card">
+
+    <div class="auth-header">
+      <div class="auth-logo">🏦</div>
+      <h1 class="auth-title">Welcome back</h1>
+      <p class="auth-subtitle">Sign in to your SecureBank account</p>
+    </div>
+
+    <!-- Alert (shown by JavaScript on error/success) -->
+    <div class="alert" id="login-alert" role="alert"></div>
+
+    <form id="login-form" onsubmit="handleLogin(event)" novalidate>
+
+      <div class="form-group">
+        <label class="form-label" for="email">Email address</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          class="form-input"
+          placeholder="you@example.com"
+          autocomplete="email"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          class="form-input"
+          placeholder="••••••••"
+          autocomplete="current-password"
+          required
+          minlength="8"
+        />
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block mt-2" id="login-btn">
+        Sign In
+      </button>
+
+    </form>
+
+    <div class="auth-footer">
+      Don't have an account?
+      <a href="/register" id="link-to-register">Create one free</a>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}Withdraw — SecureBank{% endblock %}
+
+{% block content %}
+<div class="banking-page">
+  <div class="container">
+    <div class="banking-card">
+
+      <div class="page-header anim anim-1">
+        <div class="page-eyebrow">Banking</div>
+        <h1 class="page-title">Withdraw Money</h1>
+        {% if balance is not none %}
+          <p class="mt-1">
+            Available balance:
+            <strong class="text-accent">₹{{ "%.2f"|format(balance) }}</strong>
+          </p>
+        {% endif %}
+      </div>
+
+      <!-- Alert -->
+      <div class="alert" id="withdraw-alert" role="alert"></div>
+
+      <!-- Withdraw Form -->
+      <div class="card anim anim-2">
+        <form id="withdraw-form" onsubmit="handleWithdraw(event)" novalidate>
+
+          <div class="form-group">
+            <label class="form-label" for="amount">Withdrawal Amount (₹)</label>
+            <div class="input-with-prefix">
+              <span class="input-prefix">₹</span>
+              <input
+                type="number"
+                id="amount"
+                name="amount"
+                class="form-input"
+                placeholder="0.00"
+                min="0.01"
+                step="0.01"
+                {% if balance is not none %}max="{{ balance }}"{% endif %}
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="description">Description (optional)</label>
+            <input
+              type="text"
+              id="description"
+              name="description"
+              class="form-input"
+              placeholder="e.g. Rent, Groceries"
+              maxlength="255"
+            />
+          </div>
+
+          <button type="submit" class="btn btn-danger btn-block" id="withdraw-btn"
+                  style="background: rgba(239,68,68,0.15); color: #ef4444; border: 1px solid rgba(239,68,68,0.3);">
+            ⬆️ &nbsp;Confirm Withdrawal
+          </button>
+
+        </form>
+      </div>
+
+      <!-- Success Result -->
+      <div class="result-card anim anim-3" id="result-card">
+        <div class="result-label">New Balance</div>
+        <div class="result-value" id="result-balance">₹0.00</div>
+      </div>
+
+      <!-- Navigation -->
+      <div style="text-align:center; margin-top:1.5rem;" class="anim anim-4">
+        <a href="/dashboard" id="withdraw-back">← Back to Dashboard</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
